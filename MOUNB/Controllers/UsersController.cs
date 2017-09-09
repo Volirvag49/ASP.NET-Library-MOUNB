@@ -11,6 +11,7 @@ using MOUNB.Models;
 
 namespace MOUNB.Controllers
 {
+    [Authorize(Roles = "Администратор")]
     public class UsersController : Controller
     {
         private MounbDbContext db = new MounbDbContext();
