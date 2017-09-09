@@ -14,6 +14,8 @@ namespace MOUNB.Models
             Database.SetInitializer<MounbDbContext>(new SampleData());
         }
 
+
+        public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
     } // Конец класса
 } // Конец пронстранства

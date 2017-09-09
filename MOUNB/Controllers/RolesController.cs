@@ -11,148 +11,107 @@ using MOUNB.Models;
 
 namespace MOUNB.Controllers
 {
-    public class UsersController : Controller
+    public class RolesController : Controller
     {
         private MounbDbContext db = new MounbDbContext();
 
-        // GET: Users
+        // GET: Roles
         public async Task<ActionResult> Index()
         {
-            return View(await db.Users.ToListAsync());
+            return View(await db.Roles.ToListAsync());
         }
 
-        // GET: Users/Details/5
+        // GET: Roles/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
+            Role role = await db.Roles.FindAsync(id);
+            if (role == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(role);
         }
 
-        // GET: Users/Create
+        // GET: Roles/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Roles/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Login,Password,Position,Role")] User user)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name")] Role role)
         {
-
             if (ModelState.IsValid)
             {
-
-                db.Users.Add(user);
+                db.Roles.Add(role);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(user);
+            return View(role);
         }
 
-        // Валидация пользователя
-        private async Task UserValidation(User user)
-        {
-            // Проверка роли пользователя
-            if (user.Role == 0)
-            {
-                ModelState.AddModelError("Role", "Выберите роль пользователя");
-            }
-
-            // Проверка на уникальность логина
-            var userLogin = await (from us in db.Users
-                            .Where(l => l.Login == user.Login && l.Id != user.Id)
-                                   select us.Login).FirstOrDefaultAsync();
-
-            if (userLogin != null)
-            {
-                ModelState.AddModelError("Login", "Этот логин уже занят");
-            }
-
-        }
-
-        // GET: Users/Edit/5
+        // GET: Roles/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
+            Role role = await db.Roles.FindAsync(id);
+            if (role == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(role);
         }
 
-        // POST: Users/Edit/5
+        // POST: Roles/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Login,Password,Position,Role")] User user)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name")] Role role)
         {
-            // Проверка роли пользователя
-            if (user.Role == 0)
-            {
-                ModelState.AddModelError("Role", "Выберите роль пользователя");
-            }
-
-
-            var userLogin = await (from us in db.Users
-                            .Where(l => l.Login == user.Login && l.Id != user.Id)
-                                   select us.Login).FirstOrDefaultAsync();
-
-            if (userLogin != null)
-            {
-                ModelState.AddModelError("Login", "Этот логин уже занят");
-            }
-
-
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-           
+                db.Entry(role).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            return View(role);
         }
 
-        // GET: Users/Delete/5
+        // GET: Roles/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
+            Role role = await db.Roles.FindAsync(id);
+            if (role == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(role);
         }
 
-        // POST: Users/Delete/5
+        // POST: Roles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            User user = await db.Users.FindAsync(id);
-            db.Users.Remove(user);
+            Role role = await db.Roles.FindAsync(id);
+            db.Roles.Remove(role);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
