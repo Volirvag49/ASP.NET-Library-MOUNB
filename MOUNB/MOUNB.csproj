@@ -157,7 +157,6 @@
     <Compile Include="Models\Context\MounbContext.cs" />
     <Compile Include="Models\Context\SampleData.cs" />
     <Compile Include="Models\LogViewModel.cs" />
-    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\OwnRoleProvider.cs" />
