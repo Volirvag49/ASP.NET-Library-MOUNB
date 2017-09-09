@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using MOUNB.Models;
+using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace MOUNB.Controllers
 {
@@ -17,11 +19,11 @@ namespace MOUNB.Controllers
         } // Конец метода
 
         [HttpPost]
-        public ActionResult Login(LogViewModel model, string returnUrl)
+        public  async Task<ActionResult> Login(LogViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                if (ValidateUser(model.UserName, model.Password))
+                if (await ValidateUser(model.UserName, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl))
@@ -49,7 +51,7 @@ namespace MOUNB.Controllers
             return RedirectToAction("Login", "Account");
         } // Конец метода
 
-        private bool ValidateUser(string login, string password)
+        private async Task<bool> ValidateUser(string login, string password)
         {
             bool isValid = false;
 
@@ -57,9 +59,9 @@ namespace MOUNB.Controllers
             {
                 try
                 {
-                    User user = (from us in _db.Users
+                    User user = await (from us in _db.Users
                              where us.Login == login && us.Password == password
-                             select us).FirstOrDefault();
+                             select us).FirstOrDefaultAsync();
 
                 if (user != null)
                 {
