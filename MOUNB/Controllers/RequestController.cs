@@ -8,7 +8,7 @@ using MOUNB.Models;
 
 namespace MOUNB.Controllers
 {
- //   [Authorize]
+    [Authorize]
     public class RequestController : Controller
     {
         private MounbDbContext db = new MounbDbContext();
