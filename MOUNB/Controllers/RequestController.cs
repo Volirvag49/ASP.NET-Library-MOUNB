@@ -18,13 +18,10 @@ namespace MOUNB.Controllers
             // получаем текущего пользователя
             User user = db.Users.Where(m => m.Login == HttpContext.User.Identity.Name).FirstOrDefault();
 
-            Role role = db.Roles.Find(user.RoleId);
 
-            if (role.Name == "Администратор")
+            if (user.Role == UserRole.Администратор)
                 return RedirectToAction("Index", "Users");
 
-            //else if (role.Name == "Специалист")
-            //    return RedirectToAction("Index", "Subscription");
 
             else
                 return RedirectToAction("Index", "Home");

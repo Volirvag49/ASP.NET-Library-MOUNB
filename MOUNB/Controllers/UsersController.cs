@@ -18,8 +18,7 @@ namespace MOUNB.Controllers
         // GET: Users
         public async Task<ActionResult> Index()
         {
-            var users = db.Users.Include(u => u.Role);
-            return View(await users.ToListAsync());
+            return View(await db.Users.ToListAsync());
         }
 
         // GET: Users/Details/5
@@ -40,7 +39,6 @@ namespace MOUNB.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name");
             return View();
         }
 
@@ -49,7 +47,7 @@ namespace MOUNB.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Login,Password,Position,RoleId")] User user)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Login,Password,Position,Role")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +56,6 @@ namespace MOUNB.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name", user.RoleId);
             return View(user);
         }
 
@@ -74,7 +71,6 @@ namespace MOUNB.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name", user.RoleId);
             return View(user);
         }
 
@@ -83,7 +79,7 @@ namespace MOUNB.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Login,Password,Position,RoleId")] User user)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Login,Password,Position,Role")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +87,6 @@ namespace MOUNB.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.RoleId = new SelectList(db.Roles, "Id", "Name", user.RoleId);
             return View(user);
         }
 

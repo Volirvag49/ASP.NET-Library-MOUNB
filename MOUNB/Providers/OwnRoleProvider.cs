@@ -25,12 +25,10 @@ namespace MOUNB.Providers
                                  select u).FirstOrDefault();
                     if (user != null)
                     {
-                        // получаем роль
-                        Role userRole = _db.Roles.Find(user.RoleId);
 
-                        if (userRole != null)
+                        if (user.Role != 0)
                         {
-                            role = new string[] { userRole.Name };
+                            role = new string[] { user.Role.ToString() };
                         }
                     }
                 }
@@ -55,11 +53,8 @@ namespace MOUNB.Providers
                                  select u).FirstOrDefault();
                     if (user != null)
                     {
-                        // получаем роль
-                        Role userRole = _db.Roles.Find(user.RoleId);
-
                         //сравниваем
-                        if (userRole != null && userRole.Name == roleName)
+                        if (user.Role != 0 && user.Role.ToString() == roleName)
                         {
                             outputResult = true;
                         }

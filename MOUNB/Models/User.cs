@@ -29,7 +29,12 @@ namespace MOUNB.Models
         // Идентификатор роли
         [Required]
         [Display(Name = "Роль пользователя")]
-        public int RoleId { get; set; }
-        public Role Role { get; set; }
+        public UserRole Role { get; set; }
     } // Конец класса
-}
+
+    public enum UserRole: byte
+    {
+        Администратор = 1,
+        Пользователь = 2
+    } 
+} 
