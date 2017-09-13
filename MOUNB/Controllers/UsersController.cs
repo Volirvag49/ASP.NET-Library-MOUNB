@@ -74,10 +74,10 @@ namespace MOUNB.Controllers
                     break;
 
                 case "Role":
-                    users = users.OrderBy(s => s.Position);
+                    users = users.OrderBy(s => s.Role);
                     break;
                 case "Role_desc":
-                    users = users.OrderByDescending(s => s.Position);
+                    users = users.OrderByDescending(s => s.Role);
                     break;
 
                 default:  // Name ascending 
