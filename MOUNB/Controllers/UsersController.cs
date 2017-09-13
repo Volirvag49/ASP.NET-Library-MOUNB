@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MOUNB.Models;
+using X.PagedList;
+using System.Web.Configuration;
 
 namespace MOUNB.Controllers
 {
@@ -17,10 +19,76 @@ namespace MOUNB.Controllers
         private MounbDbContext db = new MounbDbContext();
 
         // GET: Users
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(await db.Users.ToListAsync());
-        }
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.LoginSortParm = sortOrder == "Login" ? "Login_desc" : "Login";
+            ViewBag.PasswordSortParm = sortOrder == "Password" ? "Password_desc" : "Password";
+            ViewBag.PositionSortParm = sortOrder == "Position" ? "Position_desc" : "Position";
+            ViewBag.RoleSortParm = sortOrder == "Role" ? "Role_desc" : "Role";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var users = from s in await db.Users.ToListAsync()
+                        select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(s => s.Name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    users = users.OrderByDescending(s => s.Name);
+                    break;
+
+                case "Login":
+                    users = users.OrderBy(s => s.Login);
+                    break;
+                case "Login_desc":
+                    users = users.OrderByDescending(s => s.Login);
+                    break;
+
+                case "Password":
+                    users = users.OrderBy(s => s.Password);
+                    break;
+                case "Password_desc":
+                    users = users.OrderByDescending(s => s.Password);
+                    break;
+
+                case "Position":
+                    users = users.OrderBy(s => s.Position);
+                    break;
+                case "Position_desc":
+                    users = users.OrderByDescending(s => s.Position);
+                    break;
+
+                case "Role":
+                    users = users.OrderBy(s => s.Position);
+                    break;
+                case "Role_desc":
+                    users = users.OrderByDescending(s => s.Position);
+                    break;
+
+                default:  // Name ascending 
+                    users = users.OrderBy(s => s.Name);
+                    break;
+            } // Конец  switch (sortOrder)
+
+            int pageSize = Convert.ToInt32(WebConfigurationManager.AppSettings["pageSize"]);
+            int pageNumber = (page ?? 1);
+            return View(await users.ToPagedListAsync(pageNumber, pageSize));
+        } // Конец index    
 
         // GET: Users/Details/5
         public async Task<ActionResult> Details(int? id)

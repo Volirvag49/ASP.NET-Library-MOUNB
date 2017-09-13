@@ -1,24 +1,32 @@
-﻿@model IEnumerable<MOUNB.Models.User>
+﻿@model X.PagedList.IPagedList<MOUNB.Models.User>
+@using X.PagedList.Mvc;
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index", "Users", FormMethod.Get))
+{
+    <p>
+        Поиск по имени: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Поиск" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.ActionLink("ФИО", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Login)
+            @Html.ActionLink("Логин", "Index", new { sortOrder = ViewBag.LoginSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Password)
+            @Html.ActionLink("Пароль", "Index", new { sortOrder = ViewBag.PasswordSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Position)
+            @Html.ActionLink("Должность", "Index", new { sortOrder = ViewBag.PositionSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Role)
+            @Html.ActionLink("Роль", "Index", new { sortOrder = ViewBag.RoleSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -49,3 +57,8 @@
 }
 
 </table>
+<br />
+Лист @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) Из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
