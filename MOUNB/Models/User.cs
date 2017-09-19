@@ -35,6 +35,6 @@ namespace MOUNB.Models
     public enum UserRole: byte
     {
         Администратор = 1,
-        Пользователь = 2
+        Библиотекарь = 2
     } 
 } 
