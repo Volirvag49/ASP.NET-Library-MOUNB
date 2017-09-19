@@ -118,8 +118,11 @@ namespace MOUNB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Name,Login,Password,Position,Role")] User user)
         {
+            await CheckLogin(this.ModelState, user);
+
             if (ModelState.IsValid)
             {
+
                 db.Users.Add(user);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -127,6 +130,22 @@ namespace MOUNB.Controllers
 
             return View(user);
         }
+
+        // Проверка логина на уникальность 
+        private async Task CheckLogin(ModelStateDictionary model, User user)
+        {
+            // поиск других пользователей с введённым логином
+            var login = await (from l in db.Users
+                        .Where(l => l.Login == user.Login)
+                        .Where(t => t.Id != user.Id)
+                               select l.Login).FirstOrDefaultAsync();
+
+            if (login != null)
+            {
+                ModelState.AddModelError("Login", "Логин должен быть уникальным");
+            }
+
+        } // Конец метода
 
         // GET: Users/Edit/5
         public async Task<ActionResult> Edit(int? id)
@@ -150,6 +169,8 @@ namespace MOUNB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Login,Password,Position,Role")] User user)
         {
+            await CheckLogin(this.ModelState, user);
+
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;
