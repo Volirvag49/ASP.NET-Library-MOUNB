@@ -118,11 +118,11 @@ namespace MOUNB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Name,Login,Password,Position,Role")] User user)
         {
+            // Валидация логина
             await CheckLogin(this.ModelState, user);
 
             if (ModelState.IsValid)
             {
-
                 db.Users.Add(user);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -169,6 +169,7 @@ namespace MOUNB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Login,Password,Position,Role")] User user)
         {
+            // Валидация логина
             await CheckLogin(this.ModelState, user);
 
             if (ModelState.IsValid)

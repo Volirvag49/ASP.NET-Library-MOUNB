@@ -15,5 +15,8 @@ namespace MOUNB.Models
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Reader> Readers { get; set; }
+        public DbSet<LibrarySubscriptions> LibrarySubscriptions { get; set; }
+        public DbSet<ReaderHistorys> ReaderHistorys { get; set; }
     } // Конец класса
 } // Конец пронстранства
