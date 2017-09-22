@@ -2,7 +2,7 @@
 @using X.PagedList.Mvc;
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить", "Create", new { }, new { @class = "viewDialog", data_dialog_title = "Добавление" })
 </p>
 @using (Html.BeginForm("Index", "Users", FormMethod.Get))
 {
@@ -49,9 +49,12 @@
             @Html.DisplayFor(modelItem => item.Role)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Смотреть", "Details", new { id = item.Id },
+            new { @class = "viewDialog", data_dialog_title = "Просмотр" }) |
+            @Html.ActionLink("Изменить", "Edit", new { id = item.Id },
+            new { @class = "viewDialog", data_dialog_title = "Редактировать" }) |
+            @Html.ActionLink("Удалить", "Delete", new { id = item.Id },
+            new { @class = "viewDialog", data_dialog_title = "Удалить" })
         </td>
     </tr>
 }
@@ -62,3 +65,22 @@
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({ cache: false });
+        $(".viewDialog").on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true
+                });
+        });
+    });
+</script>
+

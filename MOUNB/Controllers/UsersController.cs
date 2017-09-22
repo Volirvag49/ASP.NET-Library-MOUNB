@@ -97,10 +97,11 @@ namespace MOUNB.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             User user = await db.Users.FindAsync(id);
-            if (user == null)
+            if (user != null)
             {
-                return HttpNotFound();
+                return PartialView("Details", user);
             }
             return View(user);
         }
@@ -108,7 +109,7 @@ namespace MOUNB.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView("Create");
         }
 
         // POST: Users/Create
@@ -120,12 +121,12 @@ namespace MOUNB.Controllers
         {
             // Валидация логина
             await CheckLogin(this.ModelState, user);
-
             if (ModelState.IsValid)
             {
                 db.Users.Add(user);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+
+                return PartialView("Success");
             }
 
             return View(user);
@@ -155,10 +156,11 @@ namespace MOUNB.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             User user = await db.Users.FindAsync(id);
-            if (user == null)
+            if (user != null)
             {
-                return HttpNotFound();
+                return PartialView("Edit", user);
             }
+
             return View(user);
         }
 
@@ -176,8 +178,10 @@ namespace MOUNB.Controllers
             {
                 db.Entry(user).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+
+                return PartialView("Success");
             }
+
             return View(user);
         }
 
@@ -189,9 +193,9 @@ namespace MOUNB.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             User user = await db.Users.FindAsync(id);
-            if (user == null)
+            if (user != null)
             {
-                return HttpNotFound();
+                return PartialView("Delete", user);
             }
             return View(user);
         }
