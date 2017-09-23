@@ -129,7 +129,7 @@ namespace MOUNB.Controllers
                 return PartialView("Success");
             }
 
-            return View(user);
+            return PartialView(user);
         }
 
         // Проверка логина на уникальность 
@@ -161,7 +161,7 @@ namespace MOUNB.Controllers
                 return PartialView("Edit", user);
             }
 
-            return View(user);
+            return PartialView(user);
         }
 
         // POST: Users/Edit/5
@@ -182,7 +182,7 @@ namespace MOUNB.Controllers
                 return PartialView("Success");
             }
 
-            return View(user);
+            return PartialView(user);
         }
 
         // GET: Users/Delete/5
@@ -197,7 +197,7 @@ namespace MOUNB.Controllers
             {
                 return PartialView("Delete", user);
             }
-            return View(user);
+            return PartialView(user);
         }
 
         // POST: Users/Delete/5
