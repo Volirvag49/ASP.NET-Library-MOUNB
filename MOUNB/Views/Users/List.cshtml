@@ -1,6 +1,5 @@
 ﻿@model X.PagedList.IPagedList<MOUNB.Models.User>
 @using X.PagedList.Mvc;
-
 <p>
     @Html.ActionLink("Добавить", "Create", new { }, new { @class = "viewDialog", data_dialog_title = "Добавить" })
 </p>
@@ -20,9 +19,6 @@
             @Html.ActionLink("Логин", "Index", new { sortOrder = ViewBag.LoginSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Пароль", "Index", new { sortOrder = ViewBag.PasswordSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
             @Html.ActionLink("Должность", "Index", new { sortOrder = ViewBag.PositionSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
@@ -30,7 +26,7 @@
         </th>
         <th></th>
     </tr>
-
+    
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -38,9 +34,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Login)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Position)
@@ -76,11 +69,11 @@
                 .appendTo("body")
                 .load(this.href)
                 .dialog({
-                    show: { effect: "blind", duration: 200 },
-                    resizable: false,
-                    minHeight: 200,
-                    minWidth: 500,
-                    my: "top", at: "left", of: window ,
+                    show: { effect: "blind", duration: 100 },
+                    minHeight: 300,
+                    minWidth: 600,
+                    resizable: true,
+                    position: { my: "center", at: "top", of: ".table" },
                     title: $(this).attr("data-dialog-title"),
                     close: function () { $(this).remove() },
                     modal: true
