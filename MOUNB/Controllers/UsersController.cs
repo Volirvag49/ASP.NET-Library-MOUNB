@@ -208,7 +208,8 @@ namespace MOUNB.Controllers
             User user = await db.Users.FindAsync(id);
             db.Users.Remove(user);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+
+            return PartialView("Success");
         }
 
         protected override void Dispose(bool disposing)

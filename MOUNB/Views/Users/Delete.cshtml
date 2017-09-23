@@ -50,7 +50,21 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Удалить" class="btn btn-default" />
+            <input id="formButton" type="submit" value="Удалить" class="btn btn-default" />
         </div>
     }
 </div>
+<script>
+    $("#formButton").on("click", function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "@Url.Action("Delete"+ "/" + Model.Id)",
+            type: "POST",
+         data: $('form').serialize(),
+            datatype: "json",
+            success: function (result) {
+            $("#dialogContent").html(result);
+            }
+        });
+    });
+</script>

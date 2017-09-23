@@ -2,7 +2,7 @@
 @using X.PagedList.Mvc;
 
 <p>
-    @Html.ActionLink("Добавить", "Create", new { }, new { @class = "viewDialog", data_dialog_title = "Добавление" })
+    @Html.ActionLink("Добавить", "Create", new { }, new { @class = "viewDialog", data_dialog_title = "Добавить" })
 </p>
 @using (Html.BeginForm("Index", "Users", FormMethod.Get))
 {
@@ -76,6 +76,11 @@
                 .appendTo("body")
                 .load(this.href)
                 .dialog({
+                    show: { effect: "blind", duration: 200 },
+                    resizable: false,
+                    minHeight: 200,
+                    minWidth: 500,
+                    my: "top", at: "left", of: window ,
                     title: $(this).attr("data-dialog-title"),
                     close: function () { $(this).remove() },
                     modal: true
