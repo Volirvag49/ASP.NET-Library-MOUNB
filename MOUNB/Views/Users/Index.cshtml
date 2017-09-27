@@ -1,6 +1,4 @@
-﻿<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
-@{
+﻿@{
     ViewBag.Title = "Список пользователей";
 }
 
@@ -8,52 +6,26 @@
 <br />
 <div id="listContainer"></div>
 
-
-
 @section scripts
 {
     <script language="javascript" type="text/javascript">
         $(document).ready(function () {
             $("#listContainer").load('@Url.Action("List")'); // Загрузка частичного представления
 
-            $(document).on("click", "#contentPager a[href]", function () {
-                $.ajax({
-                    url: $(this).attr("href"),
-                    type: 'GET',
-                    cache: false,
-                    success: function (result) {
-                        $('#content').html(result);
-                    }
-                });
-                return false;
-            });
-
-            $(document).on("click", "#contentSorter a[href]", function () {
-                $.ajax({
-                    url: $(this).attr("href"),
-                    type: 'GET',
-                    cache: false,
-                    success: function (result) {
-                        $('#content').html(result);
-                    }
-                });
-                return false;
-            });
-
-            $(document).on("click", "#contentSerach a[href]", function () {
-                $.ajax({
-                    url: $(this).attr("href"),
-                    type: 'GET',
-                    cache: false,
-                    success: function (result) {
-                        $('#content').html(result);
-                    }
-                });
-                return false;
-            });
+            $(document).on("click", "#contentPager a[href]", updateContent);
+            $(document).on("click", "#contentSorter a[href]", updateContent);
         });
-
-
+        function updateContent() {
+            $.ajax({
+                url: $(this).attr("href"),
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $('#content').html(result);
+                }
+            });
+            return false;
+        }
     </script>
 
 }
