@@ -29,12 +29,14 @@ namespace MOUNB.Models
         // Идентификатор роли
         [Required]
         [Display(Name = "Роль пользователя")]
+        [NotAllowedUserRole(ErrorMessage = "Выберите роль пользователя")] // Собственная логика валидации
         public UserRole Role { get; set; }
     } // Конец класса
 
     public enum UserRole: byte
     {
+        Нет = 0,
         Администратор = 1,
         Библиотекарь = 2
-    } 
+    }
 } 

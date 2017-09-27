@@ -165,6 +165,7 @@
     <Compile Include="Models\Context\SampleData.cs" />
     <Compile Include="Models\LibrarySubscriptions.cs" />
     <Compile Include="Models\LogViewModel.cs" />
+    <Compile Include="Models\OwnValidationAttribute\NotAllowedUserRoleAttribute.cs" />
     <Compile Include="Models\Reader.cs" />
     <Compile Include="Models\ReaderHistorys.cs" />
     <Compile Include="Models\User.cs" />
