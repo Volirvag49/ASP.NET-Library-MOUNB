@@ -1,63 +1,72 @@
 ﻿@model X.PagedList.IPagedList<MOUNB.Models.User>
 @using X.PagedList.Mvc;
-<p>
-    @Html.ActionLink("Добавить", "Create", new { }, new { @class = "viewDialog", data_dialog_title = "Добавить" })
-</p>
-@using (Html.BeginForm("Index", "Users", FormMethod.Get))
-{
+@{
+    Layout = null;
+}
+<div id="content">
     <p>
-        Поиск по имени: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Поиск" />
+        @Html.ActionLink("Добавить", "Create", new { }, new { @class = "viewDialog", data_dialog_title = "Добавить" })
     </p>
-}
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink("ФИО", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("Логин", "Index", new { sortOrder = ViewBag.LoginSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("Должность", "Index", new { sortOrder = ViewBag.PositionSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("Роль", "Index", new { sortOrder = ViewBag.RoleSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th></th>
-    </tr>
-    
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Login)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Position)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role)
-        </td>
-        <td>
-            @Html.ActionLink("Смотреть", "Details", new { id = item.Id },
+    @using (Html.BeginForm("Index", "Users", FormMethod.Get))
+    {
+        <p>
+            Поиск по имени: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Поиск" />
+        </p>
+    }
+
+    <table class="table">
+        <tr id="contentSorter">
+            <th>
+                @Html.ActionLink("ФИО", "List", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Логин", "List", new { sortOrder = ViewBag.LoginSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Должность", "List", new { sortOrder = ViewBag.PositionSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Роль", "List", new { sortOrder = ViewBag.RoleSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.ActionLink("Смотреть", "Details", new { id = item.Id },
             new { @class = "viewDialog", data_dialog_title = "Просмотр" }) |
-            @Html.ActionLink("Изменить", "Edit", new { id = item.Id },
+                    @Html.ActionLink("Изменить", "Edit", new { id = item.Id },
             new { @class = "viewDialog", data_dialog_title = "Редактировать" }) |
-            @Html.ActionLink("Удалить", "Delete", new { id = item.Id },
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.Id },
             new { @class = "viewDialog", data_dialog_title = "Удалить" })
-        </td>
-    </tr>
-}
+                </td>
+            </tr>
+        }
 
-</table>
-<br />
-Лист @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) Из @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index",
+    </table>
+    <br />
+    <div id="contentPager">
+        Лист @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) Из @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("List",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+
+</div>
 
 <script>
     $(document).ready(function () {
@@ -80,5 +89,7 @@
                 });
         });
     });
+
+
 </script>
 

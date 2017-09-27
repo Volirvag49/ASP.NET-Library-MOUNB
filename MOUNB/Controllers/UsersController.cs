@@ -18,8 +18,13 @@ namespace MOUNB.Controllers
     {
         private MounbDbContext db = new MounbDbContext();
 
+        public ViewResult Index()
+        {
+            return View();
+        }
+
         // GET: Users
-        public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public async Task<ActionResult> List(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
