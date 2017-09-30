@@ -24,7 +24,7 @@ namespace MOUNB.Controllers
         }
 
         // GET: Users
-        public async Task<ActionResult> List(string sortOrder, string currentFilter, string searchString, int? page)
+        public async Task<ActionResult> List(string sortOrder, string currentFilter, string currentSelection, string searchString, string searchSelection, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -40,17 +40,35 @@ namespace MOUNB.Controllers
             else
             {
                 searchString = currentFilter;
+                searchSelection = currentSelection;
             }
 
             ViewBag.CurrentFilter = searchString;
+            ViewBag.CurrentSelection = searchSelection;
 
             var users = from s in await db.Users.ToListAsync()
                         select s;
 
+            // Поиск
             if (!String.IsNullOrEmpty(searchString))
-            {
-                users = users.Where(s => s.Name.Contains(searchString));
-            }
+            { 
+                switch (searchSelection)
+                {
+                    case "Login":
+                        users = users.Where(s => s.Login.ToLower().Contains(searchString.ToLower()));
+                        break;
+                    case "Position":
+                        users = users.Where(s => s.Position.ToLower().Contains(searchString.ToLower()));
+                        break;
+                    case "Role":
+                        users = users.Where(s => s.Role.ToString().ToLower().Contains(searchString.ToLower()));
+                        break;
+                    default:
+                        users = users.Where(s => s.Name.ToLower().Contains(searchString.ToLower()));
+                        break;
+                }
+            } // Конец if (!String.IsNullOrEmpty(searchString))
+            // Сортировка
             switch (sortOrder)
             {
                 case "name_desc":

@@ -15,16 +15,16 @@
     <table class="table">
         <tr id="contentSorter">
             <th>
-                @Html.ActionLink("ФИО", "List", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                @Html.ActionLink("ФИО", "List", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection })
             </th>
             <th>
-                @Html.ActionLink("Логин", "List", new { sortOrder = ViewBag.LoginSortParm, currentFilter = ViewBag.CurrentFilter })
+                @Html.ActionLink("Логин", "List", new { sortOrder = ViewBag.LoginSortParm, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection })
             </th>
             <th>
-                @Html.ActionLink("Должность", "List", new { sortOrder = ViewBag.PositionSortParm, currentFilter = ViewBag.CurrentFilter })
+                @Html.ActionLink("Должность", "List", new { sortOrder = ViewBag.PositionSortParm, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection })
             </th>
             <th>
-                @Html.ActionLink("Роль", "List", new { sortOrder = ViewBag.RoleSortParm, currentFilter = ViewBag.CurrentFilter })
+                @Html.ActionLink("Роль", "List", new { sortOrder = ViewBag.RoleSortParm, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection })
             </th>
             <th></th>
         </tr>
@@ -58,9 +58,9 @@
     </table>
     <br />
     <div id="contentPager">
-        Лист @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) Из @Model.PageCount
+        Лист @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount. Всего элементов: @Model.TotalItemCount.
         @Html.PagedListPager(Model, page => Url.Action("List",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection }))
     </div>
 
 </div>
@@ -79,7 +79,7 @@
                     show: { effect: "blind", duration: 100 },
                     minHeight: 300,
                     minWidth: 600,
-                    resizable: true,
+                    resizable: false,
                     position: { my: "center", at: "top", of: ".table" },
                     title: $(this).attr("data-dialog-title"),
                     close: function () { $(this).remove() },

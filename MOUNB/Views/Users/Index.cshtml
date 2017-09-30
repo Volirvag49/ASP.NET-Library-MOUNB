@@ -6,10 +6,18 @@
 <br />
 <form id="searchForm" action="@Url.Action("List")" method="get">
     <p>
-        Поиск: <input id="searchString" name="searchString" type="text" value="" placeholder="Введите имя">
+        Поиск: <input id="searchString" name="searchString" type="text" value="">
         <input type="submit" value="Поиск">
+         по:
+        <select name="searchSelection" size="1">
+            <option value="" selected="selected">Имя</option>
+            <option value="Login">Логин</option>
+            <option value="Position">Должность</option>
+            <option value="Role">Роль</option>
+        </select>
     </p>
 </form>
+
 <div id="listContainer"></div>
 
 @section scripts

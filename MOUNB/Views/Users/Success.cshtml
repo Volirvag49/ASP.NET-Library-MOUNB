@@ -1,8 +1,23 @@
-﻿<h3>Успешно</h3>
+﻿<h2 class="text-info text-center">Успешно</h2>
 <script>
     $(document).ready(function () {
-        setTimeout(function() {
-            window.location.href = "@Url.Action("Index")";
-        }, 200);
+        $("#dialogContent").dialog({
+            height: 120,
+        });
+        setTimeout(function () {
+            $("#dialogContent").dialog().dialog("close");
+            updateContent();
+        }, 300);
     })
+    function updateContent() {
+        $.ajax({
+            url: "@Url.Action("List")",
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#content').html(result);
+            }
+        });
+        return false;
+    }
 </script>

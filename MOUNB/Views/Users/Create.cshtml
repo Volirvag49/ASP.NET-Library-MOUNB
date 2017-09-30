@@ -50,12 +50,13 @@
                 <input id="formButton" type="submit" value="Добавить" class="btn btn-default" />
             </div>
         </div>
+        <div id="dialogresult"></div>
     </div>
+
 }
 <script>
-    $("#formButton").on("click", function (e) {
+     $("#formButton").on("click", function (e) {
         e.preventDefault();
-
         $.ajax({
             url: "@Url.Action("Create")",
             type: "POST",
