@@ -12,12 +12,6 @@
     <p>
         @Html.ActionLink("Добавить", "Create", new { }, new { @class = "viewDialog", data_dialog_title = "Добавить" })
     </p>
-    <form id="searchForm" action="@Url.Action("List")" method="get">
-        <p>
-            Поиск: <input id="searchString" name="searchString" type="text" value="" placeholder="Введите имя">
-            <input type="submit" value="Поиск">
-        </p>
-    </form>
     <table class="table">
         <tr id="contentSorter">
             <th>
@@ -91,19 +85,6 @@
                     close: function () { $(this).remove() },
                     modal: true
                 });
-        });
-        // Поиск
-        $("#searchForm").submit(function (event) {
-            event.preventDefault();
-            $.ajax({
-                url: $("#searchForm").attr('action'),
-                data: $("#searchForm").serialize(),
-                type: 'GET',
-                cache: false,
-                success: function (data) {
-                    $('#content').html(data);
-                }
-            });
         });
     });
 </script>
