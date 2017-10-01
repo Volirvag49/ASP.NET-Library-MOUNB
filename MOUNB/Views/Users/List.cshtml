@@ -10,23 +10,22 @@
 </head>
 <div id="content">
     <p>
-        @Html.ActionLink("Добавить", "Create", new { }, new { @class = "viewDialog", data_dialog_title = "Добавить" })
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "viewDialog btn btn-default glyphicon glyphicon-plus", data_dialog_title = "Добавить"})
     </p>
-    <table class="table">
+    <table class="table table-bordered table-hover">
         <tr id="contentSorter">
             <th>
-                @Html.ActionLink("ФИО", "List", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection })
+                @Html.ActionLink("ФИО", "List", new {sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection }, new { @class = "glyphicon glyphicon-sort" })
             </th>
             <th>
-                @Html.ActionLink("Логин", "List", new { sortOrder = ViewBag.LoginSortParm, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection })
+                @Html.ActionLink("Логин", "List", new { sortOrder = ViewBag.LoginSortParm, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection }, new { @class = "glyphicon glyphicon-sort" })
             </th>
             <th>
-                @Html.ActionLink("Должность", "List", new { sortOrder = ViewBag.PositionSortParm, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection })
+                @Html.ActionLink("Должность", "List", new { sortOrder = ViewBag.PositionSortParm, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection }, new { @class = "glyphicon glyphicon-sort" })
             </th>
             <th>
-                @Html.ActionLink("Роль", "List", new { sortOrder = ViewBag.RoleSortParm, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection })
+                @Html.ActionLink("Роль", "List", new { sortOrder = ViewBag.RoleSortParm, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection }, new { @class = "glyphicon glyphicon-sort" })
             </th>
-            <th></th>
         </tr>
 
         @foreach (var item in Model)
@@ -44,13 +43,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Role)
                 </td>
-                <td>
-                    @Html.ActionLink("Смотреть", "Details", new { id = item.Id },
-            new { @class = "viewDialog", data_dialog_title = "Просмотр" }) |
-                    @Html.ActionLink("Изменить", "Edit", new { id = item.Id },
-            new { @class = "viewDialog", data_dialog_title = "Редактировать" }) |
-                    @Html.ActionLink("Удалить", "Delete", new { id = item.Id },
-            new { @class = "viewDialog", data_dialog_title = "Удалить" })
+                <td style="width: 144px;">
+                    @Html.ActionLink(" ", "Details", new { id = item.Id },
+            new { @class = "viewDialog btn btn-default glyphicon glyphicon-exclamation-sign", data_dialog_title = "Просмотр" }) 
+                    @Html.ActionLink(" ", "Edit", new { id = item.Id },
+            new { @class = "viewDialog btn btn-default glyphicon glyphicon-pencil", data_dialog_title = "Редактировать" }) 
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id },
+            new { @class = "viewDialog btn btn-default glyphicon glyphicon-minus", data_dialog_title = "Удалить" })
                 </td>
             </tr>
         }
@@ -58,9 +57,11 @@
     </table>
     <br />
     <div id="contentPager">
-        Лист @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount. Всего элементов: @Model.TotalItemCount.
-        @Html.PagedListPager(Model, page => Url.Action("List",
+        <label>
+            Лист @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount. Всего элементов: @Model.TotalItemCount.
+            @Html.PagedListPager(Model, page => Url.Action("List",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, currentSelection = ViewBag.CurrentSelection }))
+        </label>
     </div>
 
 </div>
@@ -72,15 +73,16 @@
         $(".viewDialog").on("click", function (e) {
             e.preventDefault();
             $("<div id='dialogContent'></div>")
-                .addClass("dialog")
+                .addClass("modal-content")
                 .appendTo("body")
                 .load(this.href)
                 .dialog({
-                    show: { effect: "blind", duration: 100 },
-                    minHeight: 300,
-                    minWidth: 600,
+                    show: { effect: "blind", duration: 200 },
+                    hide: { effect: "blind", duration: 200 },
+                    Height: 'auto',
+                    minWidth: '500',
                     resizable: false,
-                    position: { my: "center", at: "top", of: ".table" },
+                    position: { my: "center top", at: "center top - 100", of: ".table" },
                     title: $(this).attr("data-dialog-title"),
                     close: function () { $(this).remove() },
                     modal: true
