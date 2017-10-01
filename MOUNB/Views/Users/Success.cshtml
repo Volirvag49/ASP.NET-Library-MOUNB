@@ -11,11 +11,17 @@
     })
     function updateContent() {
         $.ajax({
+            beforeSend: function () {
+                $("#loadingDiv").show();
+            },
             url: "@Url.Action("List")",
             type: 'GET',
             cache: false,
             success: function (result) {
                 $('#content').html(result);
+            },
+            complete: function () {
+                $("#loadingDiv").hide();
             }
         });
         return false;

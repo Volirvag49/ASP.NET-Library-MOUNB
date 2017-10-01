@@ -28,6 +28,7 @@ namespace MOUNB
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/loaderstyle.css",
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/jquery-ui").Include(

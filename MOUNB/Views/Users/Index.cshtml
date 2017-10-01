@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "Список пользователей";
 }
-
 <h2>Список пользователей</h2>
 <br />
 <form id="searchForm" action="@Url.Action("List")" method="get">
@@ -17,9 +16,7 @@
         </select>
     </p>
 </form>
-
 <div id="listContainer"></div>
-
 @section scripts
 {
     <script language="javascript" type="text/javascript">
@@ -32,23 +29,35 @@
             $("#searchForm").submit(function (event) {
                 event.preventDefault();
                 $.ajax({
+                    beforeSend: function () {
+                        $("#loadingDiv").show();
+                    },
                     url: $("#searchForm").attr('action'),
                     data: $("#searchForm").serialize(),
                     type: 'GET',
                     cache: false,
                     success: function (data) {
                         $('#content').html(data);
+                    },
+                    complete: function () {
+                        $("#loadingDiv").hide();
                     }
                 });
             });
         });
         function updateContent() {
             $.ajax({
+                beforeSend: function () {
+                    $("#loadingDiv").show();
+                },
                 url: $(this).attr("href"),
                 type: 'GET',
                 cache: false,
                 success: function (result) {
                     $('#content').html(result);
+                },
+                complete: function () {
+                    $("#loadingDiv").hide();
                 }
             });
             return false;

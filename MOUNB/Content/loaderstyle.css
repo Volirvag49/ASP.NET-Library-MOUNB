@@ -1,0 +1,12 @@
+﻿.loader {
+    position: absolute;
+    z-index: 800;
+    background-image: url('/Content/Images/loading.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    background-color: #CCCCCC;
+    display: none;
+} 
