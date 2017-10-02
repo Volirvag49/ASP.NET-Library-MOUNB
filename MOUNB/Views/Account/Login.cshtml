@@ -16,9 +16,9 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jquery-ui")
-
 </head>
 <body>
+    <div id="loadingDiv" class="loader"></div>
     <div id="Content">
         <div class="row">
             <div class="col-md-4 column ui-sortable"></div>
@@ -26,7 +26,6 @@
                 <div class="container body-content">
 
                     <h2>Вход в систему</h2>
-
                     @using (Html.BeginForm())
                     {
                         @Html.ValidationSummary(true)
@@ -69,11 +68,17 @@
             url: "@Url.Action("Login")",
             type: "POST",
          data: $('form').serialize(),
-            datatype: "json",
+         datatype: "json",
+         beforeSend: function () {
+             $("#loadingDiv").show();
+         },
             success: function (result) {
                 if (result.result == 'Redirect')
                     window.location = response.url;
             $("#Content").html(result);
+         },
+            complete: function () {
+                $("#loadingDiv").hide();
             }
         });
     });
