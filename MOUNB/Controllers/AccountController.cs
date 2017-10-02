@@ -32,7 +32,8 @@ namespace MOUNB.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Request");
+                        // return RedirectToAction("Index", "Request");
+                        return PartialView("Success");
                     }
                 }
                 else
