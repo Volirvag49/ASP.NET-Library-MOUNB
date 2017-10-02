@@ -28,7 +28,7 @@ namespace MOUNB.Models
 
         // Идентификатор роли
         [Required]
-        [Display(Name = "Роль пользователя")]
+        [Display(Name = "Роль")]
         [NotAllowedUserRole(ErrorMessage = "Выберите роль пользователя")] // Собственная логика валидации
         public UserRole Role { get; set; }
     } // Конец класса

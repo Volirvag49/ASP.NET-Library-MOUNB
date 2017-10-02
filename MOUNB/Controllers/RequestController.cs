@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
 using MOUNB.Models;
+using System.Threading.Tasks;
 
 namespace MOUNB.Controllers
 {
@@ -13,15 +14,13 @@ namespace MOUNB.Controllers
     {
         private MounbDbContext db = new MounbDbContext();
         // GET: Request
-        public RedirectToRouteResult Index()
+        public async Task<RedirectToRouteResult> Index()
         {
             // получаем текущего пользователя
-            User user = db.Users.Where(m => m.Login == HttpContext.User.Identity.Name).FirstOrDefault();
-
+            User user = await db.Users.Where(m => m.Login == HttpContext.User.Identity.Name).FirstOrDefaultAsync();
 
             if (user.Role == UserRole.Администратор)
                 return RedirectToAction("Index", "Users");
-
 
             else
                 return RedirectToAction("Index", "Home");

@@ -1,10 +1,6 @@
 ﻿<h2 class="text-info text-center">Успешно</h2>
 <script>
     $(document).ready(function () {
-        $("#dialogContent").dialog({
-            height: 150,
-            minWidth: 200,
-        });
         setTimeout(function () {
             $("#dialogContent").dialog().dialog("close");
             updateContent();
