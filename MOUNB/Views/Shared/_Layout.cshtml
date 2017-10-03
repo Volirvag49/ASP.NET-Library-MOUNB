@@ -29,14 +29,30 @@
                     @if (HttpContext.Current.User.IsInRole("Администратор"))
                     {
                         <li>@Html.ActionLink("Пользователи", "Index", "Users")</li>
+                        <li>@Html.ActionLink("Читатели", "Index", "Readers")</li>
                     }
-                    @if ((HttpContext.Current.User.IsInRole("Администратор")) || (HttpContext.Current.User.IsInRole("Библиотекарь")))
+                    @if (HttpContext.Current.User.IsInRole("Библиотекарь"))
                     {
                         <li>@Html.ActionLink("Читатели", "Index", "Readers")</li>
                     }
                     <li>@Html.ActionLink("О программе", "About", "Home")</li>
-                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Контакты", "Contact", "Home")</li>
                 </ul>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav pull-right nav navbar-nav">
+                        @if (HttpContext.Current.User.IsInRole("Администратор"))
+                        {
+                            <li><a href="">Вы вошли как Администратор</a></li>
+                            <li>@Html.ActionLink("Выйти", "LogOff", "Account")</li>
+                        }
+
+                        @if (HttpContext.Current.User.IsInRole("Библиотекарь"))
+                        {
+                            <li><a href="">Вы вошли как Библиотекарь</a></li>
+                            <li>@Html.ActionLink("Выйти", "LogOff", "Account")</li>
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

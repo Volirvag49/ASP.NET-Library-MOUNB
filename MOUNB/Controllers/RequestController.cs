@@ -21,6 +21,8 @@ namespace MOUNB.Controllers
 
             if (user.Role == UserRole.Администратор)
                 return RedirectToAction("Index", "Users");
+            else if (user.Role == UserRole.Библиотекарь)
+                return RedirectToAction("Index", "Readers");
 
             else
                 return RedirectToAction("Index", "Home");

@@ -12,8 +12,8 @@ namespace MOUNB.Models
             // Добавление пользователей           
             List<User> users = new List<User>
             {
-                new User{Name="Пользователь по умолчанию", Login="111111", Password="111111", Position="Администратор", Role = UserRole.Администратор },
-
+                new User{Name="Пользователь по умолчанию 1", Login="111111", Password="111111", Position="Администратор", Role = UserRole.Администратор },
+                new User{Name="Пользователь по умолчанию 2", Login="222222", Password="222222", Position="Библиотекарь", Role = UserRole.Библиотекарь },
                 new User{Name="Попова Татьяна Ильинична", Login="PopovaTatyana93", Password="vBzEy9XhH9ZN", Position="Тест", Role = UserRole.Администратор },
                 new User{Name="Федотов Арсений Олегович", Login="FedotovArseniy255", Password="bfMNjaJaxToR", Position="Тест", Role = UserRole.Библиотекарь },
                 new User{Name="Киселёва Ольга Александровна", Login="KiselevaOlga69", Password="JChTQoBWERBo", Position="Тест", Role = UserRole.Библиотекарь },

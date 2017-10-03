@@ -14,7 +14,7 @@ namespace MOUNB.Models
         // Номер ЧБ
         [Required]
         [Display(Name = "Номер читательского билета")]
-        public int LibraryCardId { get; set; }
+        public int? LibraryCardId { get; set; }
 
         // Дата регистрации
         [Required]

@@ -156,6 +156,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReadersController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -271,6 +272,13 @@
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Success.cshtml" />
     <Content Include="Views\Account\Success.cshtml" />
+    <Content Include="Views\Readers\Index.cshtml" />
+    <Content Include="Views\Readers\List.cshtml" />
+    <Content Include="Views\Readers\Details.cshtml" />
+    <Content Include="Views\Readers\Create.cshtml" />
+    <Content Include="Views\Readers\Edit.cshtml" />
+    <Content Include="Views\Readers\Delete.cshtml" />
+    <Content Include="Views\Readers\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

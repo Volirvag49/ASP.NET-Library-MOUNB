@@ -1,0 +1,26 @@
+﻿<h2 class="text-info text-center">Успешно</h2>
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("#dialogContent").dialog().dialog("close");
+            updateContent();
+        }, 300);
+    })
+    function updateContent() {
+        $.ajax({
+            beforeSend: function () {
+                $("#loadingDiv").show();
+            },
+            url: "@Url.Action("List")",
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#content').html(result);
+            },
+            complete: function () {
+                $("#loadingDiv").hide();
+            }
+        });
+        return false;
+    }
+</script>
