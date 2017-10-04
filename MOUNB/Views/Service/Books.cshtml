@@ -38,8 +38,8 @@
                     @Html.DisplayFor(modelItem => item.Closed)
                 </td>
                 <td style="width: 110px;">
-                    @Html.ActionLink(" ", "Return", new { id = item.Id }, new { @class = "viewDialog btn btn-default glyphicon glyphicon-minus", data_dialog_title = "Возврат" })
                     @Html.ActionLink(" ", "Transfer", new { id = item.Id }, new { @class = "viewDialog btn btn-default glyphicon glyphicon-time", data_dialog_title = "Продлить" })
+                    @Html.ActionLink(" ", "Return", new { id = item.Id }, new { @class = "viewDialog btn btn-default glyphicon glyphicon-minus", data_dialog_title = "Возврат" })
                 </td>
             </tr>
         }

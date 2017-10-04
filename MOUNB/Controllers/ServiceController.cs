@@ -100,6 +100,7 @@ namespace MOUNB.Controllers
             if (bCount >= subscription.BooksCount)
             {
                 ModelState.AddModelError("ReaderId", "Превышен лимит выдачи!");
+               
             }
 
             // Проверка есть ли данная книга у читателя
