@@ -74,6 +74,18 @@ namespace MOUNB.Models
                 context.Readers.Add(reader);
             }
 
+            // Добавление правила
+            List<LibrarySubscriptions> subs = new List<LibrarySubscriptions> {
+                new LibrarySubscriptions{Name="АБС", BooksCount=4, ExtensionsCount= 3},
+                new LibrarySubscriptions{Name="АБО", BooksCount=3, ExtensionsCount= 1}
+            };
+
+            foreach (LibrarySubscriptions item in subs)
+            {
+
+                context.LibrarySubscriptions.Add(item);
+            }
+
             context.SaveChanges();
             base.Seed(context);
 

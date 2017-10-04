@@ -1,24 +1,6 @@
 ﻿@{
     ViewBag.Title = "Список Читателей";
 }
-<h2>Список читателей</h2>
-<br />
-<form id="searchForm" action="@Url.Action("List")" method="get" class="form-inline">
-    <label>Поиск: </label>
-    <div class="form-group">
-        <input id="searchString" name="searchString" type="text" value="" class="form-control">
-    </div>
-    <label> По: </label>
-    <div class="form-group">
-        <select name="searchSelection" size="1" class="form-control">
-            <option value="" selected="selected">ФИО</option>
-            <option value="LibraryCard">№ Ч.Б.</option>
-            <option value="DOB">Д. Рождения</option>
-        </select>
-    </div>
-    <button type="submit" value="Поиск" class="btn btn-default glyphicon glyphicon-search"></button>
-</form>
-<br />
 <div id="listContainer"></div>
 @section scripts
 {
@@ -28,25 +10,7 @@
             // Вывод страниц и сортировка
             $(document).on("click", "#contentPager a[href]", updateContent);
             $(document).on("click", "#contentSorter a[href]", updateContent);
-            // Поиск
-            $("#searchForm").submit(function (event) {
-                event.preventDefault();
-                $.ajax({
-                    beforeSend: function () {
-                        $("#loadingDiv").show();
-                    },
-                    url: $("#searchForm").attr('action'),
-                    data: $("#searchForm").serialize(),
-                    type: 'GET',
-                    cache: false,
-                    success: function (data) {
-                        $('#content').html(data);
-                    },
-                    complete: function () {
-                        $("#loadingDiv").hide();
-                    }
-                });
-            });
+            $(document).on("click", "#contentBooks a[href]", updateContent);            
         });
         function updateContent() {
             $.ajax({
@@ -65,6 +29,10 @@
             });
             return false;
         }
+        $(function () {
+
+            $('#accordion').accordion();
+        });
     </script>
 
 }

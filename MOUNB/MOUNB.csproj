@@ -158,6 +158,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReadersController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -279,6 +280,11 @@
     <Content Include="Views\Readers\Edit.cshtml" />
     <Content Include="Views\Readers\Delete.cshtml" />
     <Content Include="Views\Readers\Success.cshtml" />
+    <Content Include="Views\Service\Books.cshtml" />
+    <Content Include="Views\Service\Issue.cshtml" />
+    <Content Include="Views\Service\Success.cshtml" />
+    <Content Include="Views\Service\Return.cshtml" />
+    <Content Include="Views\Service\Transfer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

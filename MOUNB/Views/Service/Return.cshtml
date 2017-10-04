@@ -1,0 +1,50 @@
+﻿
+@model MOUNB.Models.ReaderHistorys
+<h3>В самом деле вернуть книгу?</h3>
+<div>
+    <h4>ФИО: @Html.DisplayFor(model => model.Reader.Name)</h4>
+    <h4>№ экземпляра: @Html.DisplayFor(model => model.BookExampleId)</h4>
+    <hr />
+    <dl>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Opened)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Opened)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Closed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Closed)
+        </dd>
+
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input id="formButton" type="submit" value="Вернуть" class="btn btn-default" />
+        </div>
+    }
+</div>
+
+<script>
+     $("#formButton").on("click", function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "@Url.Action("Return"+ "/" + Model.Id)",
+            type: "POST",
+         data: $('form').serialize(),
+            datatype: "json",
+            success: function (result) {
+            $("#dialogContent").html(result);
+            }
+        });
+    });
+</script>

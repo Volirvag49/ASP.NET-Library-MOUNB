@@ -1,0 +1,70 @@
+﻿@model MOUNB.Models.ReaderHistorys
+
+<h3>В самом деле перенести дату возврата?</h3>
+<div>
+    <h4>ФИО: @Html.DisplayFor(model => model.Reader.Name)</h4>
+    <h4>№ экземпляра: @Html.DisplayFor(model => model.BookExampleId)</h4>
+    <hr />
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.Opened)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Opened)
+        </dd>
+
+        <dt>
+            Старая дата возврата
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Closed)
+        </dd>
+
+        <dt>
+            Новая дата возврата
+        </dt>
+
+        <dd>
+            @ViewBag.NewClosed
+        </dd>
+
+        <dt>
+            Осталось переносов
+        </dt>
+
+        <dd>
+            @ViewBag.ExtensionsCount
+
+            <div class="editor-field">
+                @Html.HiddenFor(model => model.BookExampleId)
+                @Html.ValidationMessageFor(model => model.BookExampleId, "", new { @class = "text-danger" })
+            </div>
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input id="formButton" type="submit" value="Подтвердить" class="btn btn-default" />
+        </div>
+    }
+</div>
+<script>
+    $("#formButton").on("click", function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "@Url.Action("Transfer"+ "/" + Model.Id)",
+            type: "POST",
+         data: $('form').serialize(),
+            datatype: "json",
+            success: function (result) {
+            $("#dialogContent").html(result);
+            }
+        });
+    });
+</script>

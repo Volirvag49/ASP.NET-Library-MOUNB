@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MOUNB.Models.ReaderHistorys>
+@{
+    Layout = null;
+}
+<head>
+    <title></title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/themes/base/all.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h2>Книги читателя: @ViewBag.ReadersName </h2>
+    <p>
+        @Html.ActionLink("Выдать", "Issue", new { id = @ViewBag.ReaderId }, new { @class = "viewDialog btn btn-default glyphicon glyphicon-plus", data_dialog_title = "Выдать" })
+    </p>
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookExampleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opened)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Closed)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookExampleId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Opened)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Closed)
+                </td>
+                <td style="width: 110px;">
+                    @Html.ActionLink(" ", "Return", new { id = item.Id }, new { @class = "viewDialog btn btn-default glyphicon glyphicon-minus", data_dialog_title = "Возврат" })
+                    @Html.ActionLink(" ", "Transfer", new { id = item.Id }, new { @class = "viewDialog btn btn-default glyphicon glyphicon-time", data_dialog_title = "Продлить" })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $.ajaxSetup({ cache: false });
+            $(".viewDialog").on("click", function (e) {
+                e.preventDefault();
+                $("<div id='dialogContent'></div>")
+                    .addClass("modal-content")
+                    .appendTo("body")
+                    .load(this.href)
+                    .dialog({
+                        show: { effect: "blind", duration: 200 },
+                        hide: { effect: "blind", duration: 200 },
+                        Height: 'auto',
+                        minWidth: '500',
+                        resizable: false,
+                        position: { my: "center top", at: "center top - 100", of: ".table" },
+                        title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() },
+                        modal: true
+                    });
+            });
+        });
+    </script>
+</body>
