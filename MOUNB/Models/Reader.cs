@@ -13,12 +13,12 @@ namespace MOUNB.Models
 
         // Номер ЧБ
         [Required]
-        [Display(Name = "Номер читательского билета")]
+        [Display(Name = "№ Ч.Б.")]
         public int? LibraryCardId { get; set; }
 
         // Дата регистрации
         [Required]
-        [Display(Name = "Дата регистрации")]
+        [Display(Name = "Д. регистрации")]
         //[Range(2016, 2100, ErrorMessage = "Недопустимый год")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
@@ -32,7 +32,7 @@ namespace MOUNB.Models
 
         // Дата рождения
         [Required]
-        [Display(Name = "Дата рождения")]
+        [Display(Name = "Д. рождения")]
         //[Range(1900, 2003, ErrorMessage = "Недопустимый год")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
@@ -41,6 +41,7 @@ namespace MOUNB.Models
         // Образование
         [Required]
         [Display(Name = "Образование")]
+        [DataType(DataType.MultilineText)]
         [MaxLength(50, ErrorMessage = "Превышена максимальная длина записи")]
         public string Education { get; set; }
 
@@ -53,12 +54,14 @@ namespace MOUNB.Models
         // Место работы/учёбы
         [Required]
         [Display(Name = "Место работы/учёбы")]
+        [DataType(DataType.MultilineText)]
         [MaxLength(50, ErrorMessage = "Превышена максимальная длина записи")]
         public string PlaceOfWorkStudy { get; set; }
 
         // Адрес
         [Required]
         [Display(Name = "Домашний адрес")]
+        [DataType(DataType.MultilineText)]
         [MaxLength(50, ErrorMessage = "Превышена максимальная длина записи")]
         public string Address { get; set; }
 

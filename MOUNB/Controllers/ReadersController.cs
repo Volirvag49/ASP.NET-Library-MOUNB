@@ -54,10 +54,6 @@ namespace MOUNB.Controllers
                     case "LibraryCard":
                         readers = readers.Where(s => s.LibraryCardId.ToString().Contains(searchString));
                         break;
-                    case "DOB":
-                        readers = readers.Where(s => s.DOB.ToString().Contains(searchString));
-                        break;
-
                     default:
                         readers = readers.Where(s => s.Name.ToLower().Contains(searchString.ToLower()));
                         break;
