@@ -1,19 +1,19 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Главная";
 }
 
 @{if (HttpContext.Current.User.Identity.IsAuthenticated
-                                                                                                  && !(HttpContext.Current.User.IsInRole("Администратор"))
-                                                                                                  && !(HttpContext.Current.User.IsInRole("Библиотекарь")))
+        && !(HttpContext.Current.User.IsInRole("Администратор"))
+        && !(HttpContext.Current.User.IsInRole("Библиотекарь")))
     {
 
-        <div id="listContainer"></div>
+        <div id="content"></div>
+
         @section scripts
         {
                 <script language="javascript" type="text/javascript">
             $(document).ready(function () {
-                $("#listContainer").load('@Url.Action("Books")'); // Загрузка частичного представления
-                // Вывод страниц и сортировка
+                $("#content").load('@Url.Action("Books")'); // Загрузка частичного представления
             });
             function updateContent() {
                 $.ajax({
@@ -39,7 +39,6 @@
     }
     else{
         <h2>Вы должны войти как читатель что бы продолжить!</h2>
-       @Html.ActionLink("Войти", "Login", "Account", new { }, new { @class = "btn btn-default" })
     }
 }
 

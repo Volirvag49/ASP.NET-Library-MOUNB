@@ -25,21 +25,19 @@ namespace MOUNB.Controllers
                 using (MounbDbContext _db = new MounbDbContext())
                 {
                     // поиск  читателя
-                    int readerId = await (from r in _db.Readers
+                    int? readerId = await (from r in _db.Readers
                                    .Where(h => h.LibraryCardId.Value.ToString() == User.Identity.Name)
                                        select r.Id).FirstOrDefaultAsync();
+                    if (readerId != null)
+                    {
+                        return RedirectToAction("Books", "Service", new { id = readerId });
+                    }
 
-                    return RedirectToAction("Books", "Service", new { id = readerId });
                 }
 
             }
 
             return RedirectToAction("Index", "Home");
-        }
-
-        public ActionResult Login()
-        {
-            return View();
         }
 
         public ActionResult About()

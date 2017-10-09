@@ -10,12 +10,12 @@ namespace MOUNB.Models
     {
         // Номер ЧБ
         [Required]
-        [Display(Name = "№ Ч.Б.")]
+        [Display(Name = "Номер Читательского билета")]
         public int? LibraryCardId { get; set; }
 
         // Дата рождения
         [Required]
-        [Display(Name = "Д. рождения")]
+        [Display(Name = "Дата. рождения")]
         //[Range(1900, 2003, ErrorMessage = "Недопустимый год")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
