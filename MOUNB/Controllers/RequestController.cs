@@ -18,12 +18,17 @@ namespace MOUNB.Controllers
         {
             // получаем текущего пользователя
             User user = await db.Users.Where(m => m.Login == HttpContext.User.Identity.Name).FirstOrDefaultAsync();
-
+            if (user == null)
+            {
+                  if (User.Identity.IsAuthenticated)
+                    return RedirectToAction("About", "Home");
+            }
+ 
             if (user.Role == UserRole.Администратор)
                 return RedirectToAction("Index", "Users");
             else if (user.Role == UserRole.Библиотекарь)
                 return RedirectToAction("Index", "Readers");
-
+            
             else
                 return RedirectToAction("Index", "Home");
         } // Конец метода

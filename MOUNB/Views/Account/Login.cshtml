@@ -1,5 +1,4 @@
-﻿@model MOUNB.Models.LogViewModel
-@{
+﻿@{
     Layout = null;
 }
 
@@ -19,69 +18,22 @@
 </head>
 <body>
     <div id="loadingDiv" class="loader"></div>
-    <div id="Content">
         <div class="row">
             <div class="col-md-4 column ui-sortable"></div>
             <div class="col-md-4 column ui-sortable">
-                <div class="container body-content">
-
-                    <h2>Вход в систему</h2>
-                    @using (Html.BeginForm())
-                    {
-                        @Html.ValidationSummary(true)
-
-                        <fieldset>
-                            <legend>Введите свой логин и пароль для входа в систему</legend>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "Введите логин" } })
-                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Введите пароль" } })
-                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="checkbox">
-                                @Html.LabelFor(model => model.RememberMe)
-                                @Html.EditorFor(model => model.RememberMe)
-                            </div>
-                            <p>
-                                <div class="form-group">
-                                    <input id="formButton" type="submit" value="Войти" class="btn btn-default" />
-                                </div>
-
-                        </fieldset>
-                    }
-                </div>
+                <h2>Вход в систему</h2>
             </div>
             <div class="col-md-4 column ui-sortable"></div>
         </div>
-    </div>
-    <script>
-     $("#formButton").on("click", function (e) {
-        e.preventDefault();
-        $.ajax({
-            url: "@Url.Action("Login")",
-            type: "POST",
-         data: $('form').serialize(),
-         datatype: "json",
-         beforeSend: function () {
-             $("#loadingDiv").show();
-         },
-            success: function (result) {
-                if (result.result == 'Redirect')
-                    window.location = response.url;
-            $("#Content").html(result);
-         },
-            complete: function () {
-                $("#loadingDiv").hide();
-            }
-        });
-    });
-    </script>
+            <div class="row">
+                <div class="col-md-3 column ui-sortable"></div>
+                <div class="col-md-3 column ui-sortable">
+                    @Html.Partial("ReaderLogin")
+                </div>
+                <div class="col-md-3 column ui-sortable">
+                    @Html.Partial("UserLogin")
+                </div>
+                <div class="col-md-3 column ui-sortable"></div>
+            </div>
 </body>
 </html>

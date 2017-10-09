@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using MOUNB.Models;
+using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace MOUNB.Controllers
 {
@@ -11,6 +15,17 @@ namespace MOUNB.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        public ActionResult Logoff()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult About()

@@ -19,7 +19,7 @@ namespace MOUNB.Controllers
         } // Конец метода
 
         [HttpPost]
-        public  async Task<ActionResult> Login(LogViewModel model, string returnUrl)
+        public  async Task<ActionResult> UserLogin(LogViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -76,5 +76,36 @@ namespace MOUNB.Controllers
             }
             return isValid;
         }  // Конец метода
+
+        [HttpPost]
+        public async Task<ActionResult> ReaderLogin(ReaderViewModel reader)
+        {
+            if (ModelState.IsValid)
+            {
+                using (MounbDbContext _db = new MounbDbContext())
+                {
+                    // поиск Читателя
+                    int readerId = await (from r in _db.Readers
+                                    .Where(r => r.LibraryCardId.Value == reader.LibraryCardId
+                                    && r.DOB.Day == reader.DOB.Day
+                                    && r.DOB.Month == reader.DOB.Month
+                                    && r.DOB.Year == reader.DOB.Year)
+                                          select r.Id).FirstOrDefaultAsync();
+
+                    if (readerId != 0)
+                    {
+                        FormsAuthentication.SetAuthCookie(reader.LibraryCardId.ToString(), true);
+                        ViewBag.readerId = readerId;
+                        return PartialView("Success");
+                    }
+                    else
+                    {
+
+                        ModelState.AddModelError("", "Пользователь не найден");
+                    }
+                }
+            }
+            return View(reader);
+        } // Конец метода
     } // Конец класса
 } // Конец пронстранства

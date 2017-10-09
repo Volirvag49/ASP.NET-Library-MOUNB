@@ -1,0 +1,66 @@
+﻿@model MOUNB.Models.ReaderViewModel
+@{
+    Layout = null;
+}
+
+<div id="loadingDiv" class="loader"></div>
+<div id="Content">
+    <div class="row">
+        <div class="col-md-4 column ui-sortable"></div>
+        <div class="col-md-4 column ui-sortable">
+            <div class="container body-content">
+
+                <h2>Вход в систему</h2>
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+
+                    <fieldset>
+                        <legend>Введите свой номер читательского билета и дату рождения для продолжения</legend>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LibraryCardId, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.LibraryCardId, new { htmlAttributes = new { @class = "form-control", placeholder = "Введите логин" } })
+                            @Html.ValidationMessageFor(model => model.LibraryCardId, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                        </div>
+                        <p>
+                            <div class="form-group">
+                                <input id="formButton" type="submit" value="Войти" class="btn btn-default" />
+                            </div>
+
+                    </fieldset>
+                }
+            </div>
+        </div>
+        <div class="col-md-4 column ui-sortable"></div>
+    </div>
+</div>
+
+<script>
+     $("#formButton").on("click", function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "@Url.Action("Login")",
+            type: "POST",
+         data: $('form').serialize(),
+         datatype: "json",
+         beforeSend: function () {
+             $("#loadingDiv").show();
+         },
+            success: function (result) {
+                if (result.result == 'Redirect')
+                    window.location = response.url;
+            $("#Content").html(result);
+         },
+            complete: function () {
+                $("#loadingDiv").hide();
+            }
+        });
+    });
+</script>
+

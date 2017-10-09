@@ -40,16 +40,27 @@
                 </ul>
                 <div class="navbar-collapse collapse">
                     <ul class="nav pull-right nav navbar-nav">
-                        @if (HttpContext.Current.User.IsInRole("Администратор"))
-                        {
-                            <li><a href="">Вы вошли как Администратор</a></li>
-                            <li>@Html.ActionLink("Выйти", "LogOff", "Account")</li>
-                        }
+                        @{
+                            if (HttpContext.Current.User.IsInRole("Администратор"))
+                            {
+                                <li><a href="">Вы вошли как Администратор</a></li>
+                                <li>@Html.ActionLink("Выйти", "LogOff", "Account")</li>
+                            }
 
-                        @if (HttpContext.Current.User.IsInRole("Библиотекарь"))
-                        {
-                            <li><a href="">Вы вошли как Библиотекарь</a></li>
-                            <li>@Html.ActionLink("Выйти", "LogOff", "Account")</li>
+                            else if (HttpContext.Current.User.IsInRole("Библиотекарь"))
+                            {
+                                <li><a href="">Вы вошли как Библиотекарь</a></li>
+                                <li>@Html.ActionLink("Выйти", "LogOff", "Account")</li>
+                            }
+                            else if (HttpContext.Current.User.Identity.IsAuthenticated)
+                            {
+                                <li><a href="">Вы вошли как Пользователь</a></li>
+                                <li>@Html.ActionLink("Выйти", "LogOff", "Home")</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Войти", "Login", "Account")</li>
+                            }
                         }
                     </ul>
                 </div>

@@ -163,6 +163,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReaderViewModel.cs" />
     <Compile Include="Models\Context\MounbContext.cs" />
     <Compile Include="Models\Context\SampleData.cs" />
     <Compile Include="Models\LibrarySubscriptions.cs" />
@@ -264,7 +265,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\UserLogin.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\List.cshtml" />
@@ -285,6 +286,10 @@
     <Content Include="Views\Service\Success.cshtml" />
     <Content Include="Views\Service\Return.cshtml" />
     <Content Include="Views\Service\Transfer.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Success.cshtml" />
+    <Content Include="Views\Account\ReaderLogin.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

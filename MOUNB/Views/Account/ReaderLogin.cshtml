@@ -1,0 +1,58 @@
+﻿@model MOUNB.Models.ReaderViewModel
+@{
+    Layout = null;
+}
+<div id="ReaderLoginContent">
+    <div class="container body-content">
+        <h2>Войти как читатель</h2>
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <fieldset>
+                <legend>Введите номер читательского билета и дату рождения</legend>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LibraryCardId, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.LibraryCardId, new { htmlAttributes = new { @class = "form-control", placeholder = "Введите номер Ч.Б." } })
+                    @Html.ValidationMessageFor(model => model.LibraryCardId, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                </div>
+                <div class="checkbox">
+                    @Html.LabelFor(model => model.RememberMe)
+                    @Html.EditorFor(model => model.RememberMe)
+                </div>
+                <p>
+                    <div class="form-group">
+                        <input id="readerLoginButton" type="submit" value="Войти" class="btn btn-default" />
+                    </div>
+            </fieldset>
+        }
+    </div>
+</div>
+    <script>
+    $("#readerLoginButton").on("click", function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "@Url.Action("ReaderLogin")",
+            type: "POST",
+         data: $('form').serialize(),
+         datatype: "json",
+         beforeSend: function () {
+             $("#loadingDiv").show();
+         },
+            success: function (result) {
+                if (result.result == 'Redirect')
+                    window.location = response.url;
+                $("#ReaderLoginContent").html(result);
+         },
+            complete: function () {
+                $("#loadingDiv").hide();
+            }
+        });
+    });
+    </script>
+
+

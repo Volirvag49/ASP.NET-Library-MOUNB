@@ -29,7 +29,6 @@ namespace MOUNB.Controllers
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.LibraryCardSortParm = sortOrder == "LibraryCard" ? "LibraryCard_desc" : "LibraryCard";
             ViewBag.DOBSortParm = sortOrder == "DOB" ? "DOB_desc" : "DOB";
-
             if (searchString != null)
             {
                 page = 1;
