@@ -55,7 +55,7 @@
                             else if (HttpContext.Current.User.Identity.IsAuthenticated)
                             {
                                 <li><a href="">Вы вошли как Пользователь</a></li>
-                                <li>@Html.ActionLink("Выйти", "LogOff", "Home")</li>
+                                <li>@Html.ActionLink("Выйти", "LogOff", "Account")</li>
                             }
                             else
                             {

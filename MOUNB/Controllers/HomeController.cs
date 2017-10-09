@@ -7,6 +7,7 @@ using System.Web.Security;
 using MOUNB.Models;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Net;
 
 namespace MOUNB.Controllers
 {
@@ -17,15 +18,28 @@ namespace MOUNB.Controllers
             return View();
         }
 
+        public async Task<RedirectToRouteResult> Books()
+        {
+            if(User.Identity.Name != null)
+            {
+                using (MounbDbContext _db = new MounbDbContext())
+                {
+                    // поиск  читателя
+                    int readerId = await (from r in _db.Readers
+                                   .Where(h => h.LibraryCardId.Value.ToString() == User.Identity.Name)
+                                       select r.Id).FirstOrDefaultAsync();
+
+                    return RedirectToAction("Books", "Service", new { id = readerId });
+                }
+
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult Login()
         {
             return View();
-        }
-
-        public ActionResult Logoff()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult About()

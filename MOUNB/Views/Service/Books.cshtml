@@ -9,9 +9,12 @@
 </head>
 <body>
     <h2>Книги читателя: @ViewBag.ReadersName </h2>
-    <p>
-        @Html.ActionLink("Выдать", "Issue", new { id = @ViewBag.ReaderId }, new { @class = "viewDialog btn btn-default glyphicon glyphicon-plus", data_dialog_title = "Выдать" })
-    </p>
+    @if (HttpContext.Current.User.IsInRole("Администратор") || HttpContext.Current.User.IsInRole("Библиотекарь"))
+    {
+        <p>
+            @Html.ActionLink("Выдать", "Issue", new { id = @ViewBag.ReaderId }, new { @class = "viewDialog btn btn-default glyphicon glyphicon-plus", data_dialog_title = "Выдать" })
+        </p>
+    }
     <table class="table table-bordered table-hover">
         <tr>
             <th>
@@ -39,7 +42,10 @@
                 </td>
                 <td style="width: 110px;">
                     @Html.ActionLink(" ", "Transfer", new { id = item.Id }, new { @class = "viewDialog btn btn-default glyphicon glyphicon-time", data_dialog_title = "Продлить" })
-                    @Html.ActionLink(" ", "Return", new { id = item.Id }, new { @class = "viewDialog btn btn-default glyphicon glyphicon-minus", data_dialog_title = "Возврат" })
+                    @if (HttpContext.Current.User.IsInRole("Администратор") || HttpContext.Current.User.IsInRole("Библиотекарь"))
+                    {
+                        @Html.ActionLink(" ", "Return", new { id = item.Id }, new { @class = "viewDialog btn btn-default glyphicon glyphicon-minus", data_dialog_title = "Возврат" })
+                    }             
                 </td>
             </tr>
         }

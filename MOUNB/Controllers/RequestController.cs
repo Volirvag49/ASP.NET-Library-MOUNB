@@ -21,7 +21,7 @@ namespace MOUNB.Controllers
             if (user == null)
             {
                   if (User.Identity.IsAuthenticated)
-                    return RedirectToAction("About", "Home");
+                    return RedirectToAction("Index", "Home");
             }
  
             if (user.Role == UserRole.Администратор)
@@ -30,7 +30,7 @@ namespace MOUNB.Controllers
                 return RedirectToAction("Index", "Readers");
             
             else
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Account");
         } // Конец метода
     } // Конец класса
 } // Конец пронстранства

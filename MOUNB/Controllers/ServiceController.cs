@@ -13,6 +13,7 @@ using System.Web.Configuration;
 
 namespace MOUNB.Controllers
 {
+    [Authorize]
     public class ServiceController : Controller
     {
         private MounbDbContext db = new MounbDbContext();
@@ -44,6 +45,7 @@ namespace MOUNB.Controllers
         } // Конец метода
 
         // issue
+        [Authorize(Roles = "Администратор, Библиотекарь")]
         public async Task<ActionResult> Issue(int? id)
         {
             if (id == null)
@@ -84,6 +86,7 @@ namespace MOUNB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Администратор, Библиотекарь")]
         public async Task<ActionResult> Issue([Bind(Include = "Id,ReaderId,BookExampleId,Opened,Closed,Returned,SubscriptionId")] ReaderHistorys history)
         {
             // поиск книг читателя
@@ -137,6 +140,7 @@ namespace MOUNB.Controllers
         }
 
         // Return
+        [Authorize(Roles = "Администратор, Библиотекарь")]
         public ActionResult Return(int? id)
         {
             if (id == null)
@@ -158,6 +162,7 @@ namespace MOUNB.Controllers
         // POST: ReaderHistorys/Delete/5
         [HttpPost, ActionName("Return")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Администратор, Библиотекарь")]
         public ActionResult ReturnConfirmed(int? id)
         {
             if (id == null)

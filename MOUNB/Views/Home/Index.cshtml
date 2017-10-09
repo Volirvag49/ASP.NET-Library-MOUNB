@@ -2,47 +2,44 @@
     ViewBag.Title = "Home Page";
 }
 
-<div id="listContainer"></div>
- @{if (HttpContext.Current.User.Identity.IsAuthenticated
-                                       && !(HttpContext.Current.User.IsInRole("Администратор")) && !(HttpContext.Current.User.IsInRole("Библиотекарь")))
-     {
+@{if (HttpContext.Current.User.Identity.IsAuthenticated
+                                                                                                  && !(HttpContext.Current.User.IsInRole("Администратор"))
+                                                                                                  && !(HttpContext.Current.User.IsInRole("Библиотекарь")))
+    {
+
+        <div id="listContainer"></div>
         @section scripts
         {
-            
-
-        }
-     }
-     else
-     {
-        @section scripts
-        {
-        <script language="javascript" type="text/javascript">
-                $(document).ready(function () {
-                    $("#listContainer").load('@Url.Action("Login")'); // Загрузка частичного представления
-
-                    $(document).on("click", "#contentPager a[href]", updateContent);
-                    $(document).on("click", "#contentSorter a[href]", updateContent);
-                    $(document).on("click", "#contentBooks a[href]", updateContent);
+                <script language="javascript" type="text/javascript">
+            $(document).ready(function () {
+                $("#listContainer").load('@Url.Action("Books")'); // Загрузка частичного представления
+                // Вывод страниц и сортировка
+            });
+            function updateContent() {
+                $.ajax({
+                    beforeSend: function () {
+                        $("#loadingDiv").show();
+                    },
+                    url: $(this).attr("href"),
+                    type: 'GET',
+                    cache: false,
+                    success: function (result) {
+                        $('#content').html(result);
+                    },
+                    complete: function () {
+                        $("#loadingDiv").hide();
+                    }
                 });
-                function updateContent() {
-                    $.ajax({
-                        beforeSend: function () {
-                            $("#loadingDiv").show();
-                        },
-                        url: $(this).attr("href"),
-                        type: 'GET',
-                        cache: false,
-                        success: function (result) {
-                            $('#content').html(result);
-                        },
-                        complete: function () {
-                            $("#loadingDiv").hide();
-                        }
-                    });
-                    return false;
-                }
-        </script>
+                return false;
+        }
+            </script>
 
         }
-     }
+
+    }
+    else{
+        <h2>Вы должны войти как читатель что бы продолжить!</h2>
+       @Html.ActionLink("Войти", "Login", "Account", new { }, new { @class = "btn btn-default" })
+    }
 }
+
