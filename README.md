@@ -14,4 +14,8 @@ Cоздание автоматизированной информационно�
 интерфейс перенести срок возврата книг в любое время дня и ночи.
 Скриншоты:
 
-![ScreenShot](https://raw.github.com/{Volirvag49}/{MOUNB}/{Master}/screans/1.png)
+
+https://github.com/Volirvag49/MOUNB/blob/master/screans/1.png
+https://github.com/Volirvag49/MOUNB/blob/master/screans/2.png
+https://github.com/Volirvag49/MOUNB/blob/master/screans/3.png
+https://github.com/Volirvag49/MOUNB/blob/master/screans/4.png
